@@ -6,8 +6,6 @@ part 'whishlist_state.dart';
 
 class WhishlistBloc extends Bloc<WhishlistEvent, WhishlistState> {
   WhishlistBloc() : super(WhishlistInitial()) {
-    on<WhishlistEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<WhishlistEvent>((event, emit) {});
   }
 }
