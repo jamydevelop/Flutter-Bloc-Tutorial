@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/cart/ui/cart.dart';
 import 'package:flutter_bloc_tutorial/features/home/bloc/home_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/home/ui/product_tile_widget.dart';
 import 'package:flutter_bloc_tutorial/features/whishlist/ui/whishlist.dart';
 
 class Home extends StatefulWidget {
@@ -39,33 +40,55 @@ class _HomeState extends State<Home> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.blue,
-            title: Text(
-              "Jam Grocery App",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+        switch (state.runtimeType) {
+          case const (HomeLoadingState):
+            return Scaffold(
+                body: Center(
+              child: CircularProgressIndicator(),
+            ));
+
+          case const (HomeLoadedSuccessState):
+            final successState = state as HomeLoadedSuccessState;
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                backgroundColor: Colors.blue,
+                title: Text(
+                  "Jam Grocery App",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        homeBloc.add(HomeWishlistButtonNavigateEvent());
+                      },
+                      icon: Icon(Icons.favorite_border_outlined)),
+                  IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        homeBloc.add(HomeCartButtonNavigateEvent());
+                      },
+                      icon: Icon(Icons.shopping_bag_outlined))
+                ],
               ),
-            ),
-            actions: [
-              IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    homeBloc.add(HomeWishlistButtonNavigateEvent());
-                  },
-                  icon: Icon(Icons.favorite_border_outlined)),
-              IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    homeBloc.add(HomeCartButtonNavigateEvent());
-                  },
-                  icon: Icon(Icons.shopping_bag_outlined))
-            ],
-          ),
-        );
+              body: ListView.builder(
+                itemCount: successState.products.length,
+                itemBuilder: (context, index) {
+                  return ProductTileWidget(
+                      productDataModel: successState.products[index]);
+                },
+              ),
+            );
+          case const (HomeErrorState):
+            return Scaffold(body: Center(child: Text("Error state")));
+
+          default:
+            return SizedBox();
+        }
       },
     );
   }
