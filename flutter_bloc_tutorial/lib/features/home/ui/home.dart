@@ -33,10 +33,15 @@ class _HomeState extends State<Home> {
         if (state is HomeNavigateToCartPageActionState) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => const Cart()));
-        }
-        if (state is HomeNavigateToWishlishPageActionState) {
+        } else if (state is HomeNavigateToWishlishPageActionState) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const Whishlist()));
+        } else if (state is HomeProductItemWishlistedActionState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Item Whishlisted")));
+        } else if (state is HomeProductItemCartedActionState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Item Carted")));
         }
       },
       builder: (context, state) {
@@ -79,6 +84,7 @@ class _HomeState extends State<Home> {
                   itemCount: successState.products.length,
                   itemBuilder: (context, index) {
                     return ProductTileWidget(
+                        homeBloc: homeBloc,
                         productDataModel: successState.products[index]);
                   }),
             );

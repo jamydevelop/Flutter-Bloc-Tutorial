@@ -1,10 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc_tutorial/features/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/model/home_product_data_model.dart';
 
 class ProductTileWidget extends StatelessWidget {
   // final List<ProductDataModel> productDataModel;
   final ProductDataModel productDataModel;
-  const ProductTileWidget({super.key, required this.productDataModel});
+  final HomeBloc homeBloc;
+  const ProductTileWidget({
+    super.key,
+    required this.productDataModel,
+    required this.homeBloc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +59,15 @@ class ProductTileWidget extends StatelessWidget {
                   IconButton(
                       color: Colors.black,
                       onPressed: () {
-                        // homeBloc.add(HomeWishlistButtonNavigateEvent());
+                        homeBloc.add(HomeProductWhishlistButtonClickedEvent(
+                            clickedProduct: productDataModel));
                       },
                       icon: Icon(Icons.favorite_border_outlined)),
                   IconButton(
                       color: Colors.black,
                       onPressed: () {
-                        // homeBloc.add(HomeCartButtonNavigateEvent());
+                        homeBloc.add(HomeProductCartButtonClickedEvent(
+                            clickedProduct: productDataModel));
                       },
                       icon: Icon(Icons.shopping_bag_outlined))
                 ],
