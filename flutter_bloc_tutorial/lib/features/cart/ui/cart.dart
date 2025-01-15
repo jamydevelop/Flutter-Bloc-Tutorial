@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/cart/bloc/cart_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/cart/ui/cart_tile_widget.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -35,7 +36,20 @@ class _CartState extends State<Cart> {
         listenWhen: (previous, current) => current is CartActionState,
         buildWhen: (previous, current) => current is! CartActionState,
         builder: (context, state) {
-          return Container();
+          switch (state.runtimeType) {
+            case const (CartSuccessState):
+              final successState = state as CartSuccessState;
+              return ListView.builder(
+                  itemCount: successState.cartItems.length,
+                  itemBuilder: (context, index) {
+                    return CartTileWidget(
+                      cartBloc: cartBloc,
+                      productDataModel: successState.cartItems[index],
+                    );
+                  });
+            default:
+              return SizedBox();
+          }
         },
       ),
     );
