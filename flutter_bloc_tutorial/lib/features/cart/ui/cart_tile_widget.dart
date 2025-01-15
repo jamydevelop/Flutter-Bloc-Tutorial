@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_tutorial/features/cart/bloc/cart_bloc.dart';
-
-import 'package:flutter_bloc_tutorial/features/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/model/home_product_data_model.dart';
 
 class CartTileWidget extends StatelessWidget {
