@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/cart/bloc/cart_bloc.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -8,8 +10,34 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  final CartBloc cartBloc = CartBloc();
+
+  @override
+  void initState() {
+    cartBloc.add(CartInitialEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: Text(
+          "Cart Page",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: BlocConsumer<CartBloc, CartState>(
+        bloc: cartBloc,
+        listener: (context, state) {},
+        listenWhen: (previous, current) => current is CartActionState,
+        buildWhen: (previous, current) => current is! CartActionState,
+        builder: (context, state) {
+          return Container();
+        },
+      ),
+    );
   }
 }
