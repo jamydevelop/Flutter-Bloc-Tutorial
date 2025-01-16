@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_tutorial/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/whishlist/bloc/whishlist_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/whishlist/ui/whishlist_tile_widget.dart';
 
