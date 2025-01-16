@@ -1,6 +1,14 @@
 part of 'whishlist_bloc.dart';
 
 @immutable
-sealed class WhishlistState {}
+abstract class WhishlistState {}
 
-final class WhishlistInitial extends WhishlistState {}
+abstract class WhishlistActionState extends WhishlistState {}
+
+class WhishlistInitial extends WhishlistState {}
+
+class WishlistSuccessSate extends WhishlistState {
+  final List<ProductDataModel> whishListItems;
+
+  WishlistSuccessSate({required this.whishListItems});
+}

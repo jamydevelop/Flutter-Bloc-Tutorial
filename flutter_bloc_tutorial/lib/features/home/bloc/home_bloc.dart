@@ -43,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     whishlistItems.add(event.clickedProduct);
     emit(HomeProductItemWishlistedActionState());
     debugPrint("***********************************");
-    debugPrint("Home Product Whishlist Clicked!");
+    debugPrint("Whishlist Product Clicked!");
   }
 
   Future<void> homeProductCartButtonClickedEvent(
@@ -51,7 +51,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     cartItems.add(event.clickedProduct);
     emit(HomeProductItemCartedActionState());
     debugPrint("***********************************");
-    debugPrint("Home Product Cart Clicked!");
+    debugPrint("Cart Product Clicked!");
   }
 
   Future<void> homeWishlistButtonNavigateEvent(
